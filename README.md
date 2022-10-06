@@ -21,13 +21,21 @@ This **toybox** contains **Lua** toys for you to play with.
 
 ## Changes in your code
 
-When using **Plupdate** or a library which uses **Plupdate**, make sure to replace your own `playdate.update()` like this:
+When using **Plupdate** or if you are using a library which uses **Plupdate**, make sure to replace your own `playdate.update()` like this:
 
 ```lua
 Plupdate.addCallback(function()
     -- Place your update() code here instead
     ...
 end)
+```
+
+Finally, if your `update()`` code was originally calling the following methods, replace them by the following ones in your app's initialisation instead:
+
+```Lua
+playdate.timer.update_timers()      ->  Plupdate.iWillBeUsingTimers()
+playdate.frameTimer.update_timers() ->  Plupdate.iWillBeUsingFrameTimers()
+playdate.graphics.sprite.update()   ->  Plupdate.iWillBeUsingSprites()
 ```
 
 ## Why do we need this?
