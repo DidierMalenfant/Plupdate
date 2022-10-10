@@ -94,11 +94,11 @@ function Plupdate.update()
 	end
 	
 	if update_timers then
-		playdate.timer.update_timers()
+		playdate.timer.updateTimers()
 	end
 	
 	if update_frame_timers then
-		playdate.frameTimer.update_timers()
+		playdate.frameTimer.updateTimers()
 	end
 	
 	for _, callback in ipairs(post_update_callbacks) do
