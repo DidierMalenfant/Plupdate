@@ -60,6 +60,10 @@ Tell **Plupdate** that you require `playdate.frameTimer.update_timers()` to be c
 
 Tell **Plupdate** that you require `playdate.graphics.sprite.update()` to be called during the update loop.
 
+##### `Plupdate.showCrankIndicator()`
+
+Displays the crank indicator as long as this is called every frame. This can be called from anywhere in your code, even a sprite `update()` method.
+
 ##### `Plupdate.addCallback(callback, arg1, arg2)`
 
 Add a callback to the update loop. These will be executed **before** any of the system updates, sprites and timers for example, and in the order in which they are added.

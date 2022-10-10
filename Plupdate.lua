@@ -6,6 +6,7 @@ import "CoreLibs/graphics"
 import "CoreLibs/sprites"
 import "CoreLibs/timer"
 import "CoreLibs/frameTimer"
+import "CoreLibs/ui"
 import "CoreLibs/object"
 
 class('Plupdate', { }).extends()
@@ -24,6 +25,8 @@ end
 local update_timers = false
 local update_frame_timers = false
 local update_sprites = false
+local show_crank_indicator = false
+local show_crank_indicator_init = false
 local update_callbacks = { }
 local post_update_callbacks = { }
 local check_is_in = false
@@ -69,6 +72,22 @@ function Plupdate.iWillBeUsingSprites()
 	update_sprites = true
 end
 
+function Plupdate.showCrankIndicator()
+	Plupdate.checkForOtherPlaydateUpdate()
+	
+	if show_crank_indicator then
+		return
+	end
+
+	if show_crank_indicator_init == false then
+		playdate.ui.crankIndicator:start()
+		update_timers = true
+		show_crank_indicator_init = true
+	end
+
+	show_crank_indicator = true
+end
+
 function Plupdate.addCallback(callback, arg1, arg2)
 	Plupdate.checkForOtherPlaydateUpdate()
 	
@@ -91,6 +110,13 @@ function Plupdate.update()
 	-- Update all the playdate SDK sub-systems.
 	if update_sprites then
 		playdate.graphics.sprite.update()
+	end
+	
+	if show_crank_indicator then
+		playdate.ui.crankIndicator:update()
+		show_crank_indicator = false
+	else
+		show_crank_indicator_init = false
 	end
 	
 	if update_timers then
