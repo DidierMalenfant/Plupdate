@@ -55,11 +55,11 @@ end
 
 ## Why do we need this?
 
-Up to now, the main application had to implement `playdate.update()` and had to made sure that this method called all the update methods required by any dependencies. **Plupdate** handles this for you and also handles enabling updates for various SDK sub-systems like sprites or timers.
+Up to now, the main application had to implement `playdate.update()` and had to make sure that this method called all the update methods required by any dependencies. **Plupdate** handles this for you and also handles enabling updates for various SDK sub-systems like sprites or timers.
 
 If you are using a library that means you don't have to worry about adding things to `playdate.update()` yourself. If you are writing a library that means you can make sure that the things you need are in `playdate.update()` without requiring anything from your end-user.
 
-Best of all, **Plupdate** calls can me made from anywhere in your code, inside or outside of update loops and callbacks, with no consequences. They can even be called multiple times without causing updates to happend multiple times.
+Best of all, **Plupdate** calls can me made from anywhere in your code, inside or outside of update loops and callbacks, with no consequences. They can even be called multiple times without causing updates to happen multiple times.
 
 It just works™.
 
