@@ -21,21 +21,36 @@ This **toybox** contains **Lua** toys for you to play with.
 
 ## Changes in your code
 
-When using **Plupdate** or if you are using a library which uses **Plupdate**, make sure to replace your own `playdate.update()` like this:
+When using **Plupdate** or if you are using a library which uses **Plupdate**, make sure to replace your own `playdate.update()` by a call to `Plupdate.addCallback` during initialisation, like this:
 
 ```lua
-Plupdate.addCallback(function()
-    -- Place your update() code here instead
+function MyInit()
     ...
-end)
+
+    Plupdate.addCallback(function()
+        -- Place your update() code here instead
+        ...
+    end)
+end
 ```
 
-Finally, if your `update()`` code was originally calling the following methods, replace them by the following ones in your app's initialisation instead:
+Finally, if your `update()`` code was originally calling the following methods, replace them by the following ones, also in your app's initialisation:
 
 ```Lua
-playdate.timer.update_timers()      ->  Plupdate.iWillBeUsingTimers()
-playdate.frameTimer.update_timers() ->  Plupdate.iWillBeUsingFrameTimers()
-playdate.graphics.sprite.update()   ->  Plupdate.iWillBeUsingSprites()
+function MyInit()
+    ...
+    
+    -- If you used to call playdate.timer.updateTimers()
+    Plupdate.iWillBeUsingTimers()
+    
+    -- If you used to call playdate.frameTimer.updateTimers()
+    Plupdate.iWillBeUsingFrameTimers()
+    
+    -- If you used to call playdate.graphics.sprite.update()
+    Plupdate.iWillBeUsingSprites()
+    
+    ...
+end
 ```
 
 ## Why do we need this?
@@ -43,6 +58,8 @@ playdate.graphics.sprite.update()   ->  Plupdate.iWillBeUsingSprites()
 Up to now, the main application had to implement `playdate.update()` and had to made sure that this method called all the update methods required by any dependencies. **Plupdate** handles this for you and also handles enabling updates for various SDK sub-systems like sprites or timers.
 
 If you are using a library that means you don't have to worry about adding things to `playdate.update()` yourself. If you are writing a library that means you can make sure that the things you need are in `playdate.update()` without requiring anything from your end-user.
+
+Best of all, **Plupdate** calls can me made from anywhere in your code, inside or outside of update loops and callbacks, with no consequences. They can even be called multiple times without causing updates to happend multiple times.
 
 It just works™.
 
