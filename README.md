@@ -64,6 +64,14 @@ Tell **Plupdate** that you require `playdate.graphics.sprite.update()` to be cal
 
 Displays the crank indicator as long as this is called every frame. This can be called from anywhere in your code, even a sprite `update()` method.
 
+##### `Plupdate.onlyUpdateOneFrameEvery(number_of_ticks)`
+
+Allow calls to `playdate.update()` to only occur every so many frames. A value of 5 for `number_of_ticks`, for example, only calls update() every 5 frames which in effect runs the entire project in slow motion. Very useful for debugging things like animations.
+
+##### `Plupdate.updateEveryFrame()`
+
+Switches calls `playdate.update()` back to every frame.
+
 ##### `Plupdate.addCallback(callback, arg1, arg2)`
 
 Add a callback to the update loop. These will be executed **before** any of the system updates, sprites and timers for example, and in the order in which they are added.

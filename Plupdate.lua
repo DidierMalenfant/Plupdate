@@ -27,6 +27,9 @@ local update_frame_timers = false
 local update_sprites = false
 local show_crank_indicator = false
 local show_crank_indicator_init = false
+local tick_counter = 0
+local tick_counter_reset = 0
+
 local update_callbacks = { }
 local post_update_callbacks = { }
 local check_is_in = false
@@ -88,6 +91,16 @@ function Plupdate.showCrankIndicator()
 	show_crank_indicator = true
 end
 
+function Plupdate.onlyUpdateOneFrameEvery(number_of_ticks)
+	tick_counter = number_of_ticks
+	tick_counter_reset = number_of_ticks
+end
+
+function Plupdate.updateEveryFrame()
+	tick_counter = 0
+	tick_counter_reset = 0
+end
+
 function Plupdate.addCallback(callback, arg1, arg2)
 	Plupdate.checkForOtherPlaydateUpdate()
 	
@@ -103,6 +116,13 @@ function Plupdate.addPostCallback(callback, arg1, arg2)
 end
 
 function Plupdate.update()
+	if tick_counter > 0 then
+		tick_counter -= 1
+		return
+	else
+		tick_counter = tick_counter_reset
+	end
+
 	for _, callback in ipairs(update_callbacks) do
 		callback:call()
 	end
