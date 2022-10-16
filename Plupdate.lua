@@ -43,7 +43,7 @@ function Plupdate.checkForOtherPlaydateUpdate()
 	-- This is hacky but the SDK does things like this too, so...
 	-- We create a sprite with no graphics and use the draw method to make sure
 	-- ou playdate.update() is the only one in town. If so, we delete the sprite.
-	local check_sprite = playdate.graphics.sprite.new()
+	check_sprite = playdate.graphics.sprite.new()
 	check_sprite:setSize(playdate.display.getSize())
 	check_sprite:setCenter(0, 0)
 	check_sprite:moveTo(0, 0)
@@ -51,7 +51,8 @@ function Plupdate.checkForOtherPlaydateUpdate()
 	check_sprite:setIgnoresDrawOffset(true)
 	check_sprite:setUpdatesEnabled(false)
 	check_sprite.draw = function()
-							assert(playdate.update == Plupdate.update, 'Plupdate found another playdate.update(). See https://github.com/DidierMalenfant/Plupdate#changes-in-your-code.')
+							assert(playdate.update == Plupdate.update, 'Plupdate found another playdate.update().'..
+							'See https://github.com/DidierMalenfant/Plupdate#changes-in-your-code.')
 							check_sprite:remove()
 							check_sprite = nil
 						end
@@ -75,9 +76,10 @@ function Plupdate.iWillBeUsingSprites()
 	update_sprites = true
 end
 
+
 function Plupdate.showCrankIndicator()
 	Plupdate.checkForOtherPlaydateUpdate()
-	
+
 	if show_crank_indicator then
 		return
 	end
@@ -103,25 +105,25 @@ end
 
 function Plupdate.addCallback(callback, arg1, arg2)
 	Plupdate.checkForOtherPlaydateUpdate()
-	
+
 	-- Pre-update callbacks will be executed starting with the first one in
 	table.insert(update_callbacks, Plupdate.CallbackInfo(callback, arg1, arg2))
 end
 
 function Plupdate.addPostCallback(callback, arg1, arg2)
 	Plupdate.checkForOtherPlaydateUpdate()
-	
+
 	-- Post-update callbacks will be executed starting with the last one in
 	table.insert(post_update_callbacks, 1, Plupdate.CallbackInfo(callback, arg1, arg2))
 end
 
 function Plupdate.update()
 	if tick_counter > 0 then
-		tick_counter -= 1
+		tick_counter = tick_counter - 1
 		return
-	else
-		tick_counter = tick_counter_reset
 	end
+
+	tick_counter = tick_counter_reset
 
 	for _, callback in ipairs(update_callbacks) do
 		callback:call()
@@ -131,22 +133,22 @@ function Plupdate.update()
 	if update_sprites then
 		playdate.graphics.sprite.update()
 	end
-	
+
 	if show_crank_indicator then
 		playdate.ui.crankIndicator:update()
 		show_crank_indicator = false
 	else
 		show_crank_indicator_init = false
 	end
-	
+
 	if update_timers then
 		playdate.timer.updateTimers()
 	end
-	
+
 	if update_frame_timers then
 		playdate.frameTimer.updateTimers()
 	end
-	
+
 	for _, callback in ipairs(post_update_callbacks) do
 		callback:call()
 	end
