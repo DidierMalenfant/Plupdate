@@ -13,6 +13,8 @@ class('Plupdate', { }).extends()
 class('CallbackInfo', { method = nil, arg1 = nil, arg2 = nil }, Plupdate).extends()
 
 function Plupdate.CallbackInfo:init(callback, arg1, arg2)
+	Plupdate.super.init(self)
+
 	self.callback = callback
 	self.arg1 = arg1
 	self.arg2 = arg2
