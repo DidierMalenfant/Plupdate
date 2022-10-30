@@ -76,7 +76,6 @@ function Plupdate.iWillBeUsingSprites()
 	update_sprites = true
 end
 
-
 function Plupdate.showCrankIndicator()
 	Plupdate.checkForOtherPlaydateUpdate()
 
