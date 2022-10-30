@@ -9,8 +9,12 @@ import "CoreLibs/frameTimer"
 import "CoreLibs/ui"
 import "CoreLibs/object"
 
-class('Plupdate', { }).extends()
-class('CallbackInfo', { method = nil, arg1 = nil, arg2 = nil }, Plupdate).extends()
+dm = dm or {}
+
+class('Plupdate', { }, dm).extends()
+class('CallbackInfo', { method = nil, arg1 = nil, arg2 = nil }, dm.Plupdate).extends()
+
+local Plupdate <const> = dm.Plupdate
 
 function Plupdate.CallbackInfo:init(callback, arg1, arg2)
 	Plupdate.super.init(self)

@@ -10,10 +10,23 @@
 
 return {
     globals = {
-        Plupdate = {
+        dm = {
             fields = {
-                CallbackInfo = {
+                Plupdate = {
                     fields = {
+                        CallbackInfo = {
+                            fields = {
+                                super = {
+                                    fields = {
+                                        className = {},
+                                        init = {}
+                                    }
+                                },
+                                className = {},
+                                init = {},
+                                call = {}
+                            }
+                        },
                         super = {
                             fields = {
                                 className = {},
@@ -22,27 +35,18 @@ return {
                         },
                         className = {},
                         init = {},
-                        call = {}
+                        checkForOtherPlaydateUpdate = {},
+                        iWillBeUsingTimers = {},
+                        iWillBeUsingFrameTimers = {},
+                        iWillBeUsingSprites = {},
+                        showCrankIndicator = {},
+                        onlyUpdateOneFrameEvery = {},
+                        updateEveryFrame = {},
+                        addCallback = {},
+                        addPostCallback = {},
+                        update = {},
                     }
-                },
-                super = {
-                    fields = {
-                        className = {},
-                        init = {}
-                    }
-                },
-                className = {},
-                init = {},
-                checkForOtherPlaydateUpdate = {},
-                iWillBeUsingTimers = {},
-                iWillBeUsingFrameTimers = {},
-                iWillBeUsingSprites = {},
-                showCrankIndicator = {},
-                onlyUpdateOneFrameEvery = {},
-                updateEveryFrame = {},
-                addCallback = {},
-                addPostCallback = {},
-                update = {},
+                }
             }
         }
     }
