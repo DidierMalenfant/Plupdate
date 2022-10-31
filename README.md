@@ -21,13 +21,13 @@ This **toybox** contains **Lua** toys for you to play with.
 
 ## Changes in your code
 
-When using **Plupdate** or if you are using a library which uses **Plupdate**, make sure to replace your own `playdate.update()` by a call to `Plupdate.addCallback` during initialisation, like this:
+When using **Plupdate** or if you are using a library which uses **Plupdate**, make sure to replace your own `playdate.update()` by a call to `dm.Plupdate.addCallback` during initialisation, like this:
 
 ```lua
 function MyInit()
     ...
 
-    Plupdate.addCallback(function()
+    dm.Plupdate.addCallback(function()
         -- Place your update() code here instead
         ...
     end)
@@ -41,13 +41,13 @@ function MyInit()
     ...
     
     -- If you used to call playdate.timer.updateTimers()
-    Plupdate.iWillBeUsingTimers()
+    dm.Plupdate.iWillBeUsingTimers()
     
     -- If you used to call playdate.frameTimer.updateTimers()
-    Plupdate.iWillBeUsingFrameTimers()
+    dm.Plupdate.iWillBeUsingFrameTimers()
     
     -- If you used to call playdate.graphics.sprite.update()
-    Plupdate.iWillBeUsingSprites()
+    dm.Plupdate.iWillBeUsingSprites()
     
     ...
 end
@@ -65,48 +65,48 @@ It just works™.
 
 ## Usage
 
-##### `Plupdate.iWillBeUsingTimers()`
+##### `dm.Plupdate.iWillBeUsingTimers()`
 
 Tell **Plupdate** that you require `playdate.timer.update_timers()` to be called during the update loop.
 
-##### `Plupdate.iWillBeUsingFrameTimers()`
+##### `dm.Plupdate.iWillBeUsingFrameTimers()`
 
 Tell **Plupdate** that you require `playdate.frameTimer.update_timers()` to be called during the update loop.
 
-##### `Plupdate.iWillBeUsingSprites()`
+##### `dm.Plupdate.iWillBeUsingSprites()`
 
 Tell **Plupdate** that you require `playdate.graphics.sprite.update()` to be called during the update loop.
 
-##### `Plupdate.showCrankIndicator()`
+##### `dm.Plupdate.showCrankIndicator()`
 
 Displays the crank indicator as long as this is called every frame. This can be called from anywhere in your code, even a sprite `update()` method.
 
-##### `Plupdate.onlyUpdateOneFrameEvery(number_of_ticks)`
+##### `dm.Plupdate.onlyUpdateOneFrameEvery(number_of_ticks)`
 
 Allow calls to `playdate.update()` to only occur every so many frames. A value of 5 for `number_of_ticks`, for example, only calls update() every 5 frames which in effect runs the entire project in slow motion. Very useful for debugging things like animations.
 
-##### `Plupdate.updateEveryFrame()`
+##### `dm.Plupdate.updateEveryFrame()`
 
 Switches calls `playdate.update()` back to every frame.
 
-##### `Plupdate.addCallback(callback, arg1, arg2)`
+##### `dm.Plupdate.addCallback(callback, arg1, arg2)`
 
 Add a callback to the update loop. These will be executed **before** any of the system updates, sprites and timers for example, and in the order in which they are added.
 
 In order to add an instance method as a callback, just pass `self` as the first argument:
 
 ```lua
-Plupdate.addCallback(ClassName.method, self)
+dm.Plupdate.addCallback(ClassName.method, self)
 ```
 
-##### `Plupdate.addPostCallback(callback, arg1, arg2)`
+##### `dm.Plupdate.addPostCallback(callback, arg1, arg2)`
 
 Add a callback to the update loop. These will be executed **after** any of the system updates, sprites and timers for example, and in the reverse order in which they are added.
 
 In order to add an instance method as a callback, just pass `self` as the first argument:
 
 ```lua
-Plupdate.addPostCallback(ClassName.method, self)
+dm.Plupdate.addPostCallback(ClassName.method, self)
 ```
 
 ## License
